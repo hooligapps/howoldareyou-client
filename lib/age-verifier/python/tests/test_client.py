@@ -1,4 +1,4 @@
-from age_verifier.client import AgeVerifierClient
+from age_verifier.client import AgeVerifierClient  # pylint: disable=import-error
 
 
 def test_need_verification_success(mocker):
