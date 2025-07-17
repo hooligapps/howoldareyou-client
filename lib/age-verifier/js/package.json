@@ -1,8 +1,13 @@
 {
-    "name": "js",
+    "name": "age-verifier",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "description": "A client library for age verification.",
+    "main": "dist/bundle.umd.js",
+    "module": "dist/bundle.esm.js",
+    "files": [
+        "dist",
+        "src"
+    ],
     "scripts": {
         "test": "jest",
         "build": "rollup -c"

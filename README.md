@@ -14,11 +14,17 @@ pip install -r requirements.txt
 
 ### JavaScript (Client-side)
 
-You can use the library in your project by adding the following to your package.json:
+You can use the library in your project by installing it directly from the subdirectory in the Git repository:
+
+```bash
+npm install git+https://github.com/hooligapps/howoldareyou-client.git#master:lib/age-verifier/js
+```
+
+Or by adding the following to your `package.json`:
 
 ```json
 "dependencies": {
-    "age-verifier": "git+https://github.com/hooligapps/howoldareyou-client.git"
+    "age-verifier": "git+https://github.com/hooligapps/howoldareyou-client.git#master:lib/age-verifier/js"
 }
 ```
 
@@ -90,9 +96,11 @@ def check_result():
 
 ### JavaScript
 
-This example shows how to initialize the `AgeVerifier` and handle the verification flow.
+This example shows how to import and initialize the `AgeVerifier` and handle the verification flow.
 
 ```javascript
+import AgeVerifier from "age-verifier";
+
 const ageVerifier = new AgeVerifier({
     // The domain of the verification service iframe
     verificationApiDomain: "https://verification.service.com",
@@ -139,8 +147,8 @@ ageVerifier.checkVerificationNeeded();
 
 // 2. When the user clicks your "Start Verification" button,
 //    call startVerification with the element to host the iframe.
-document.getElementById("my-button").addEventListener("click", () => {
-    const host = document.getElementById("iframe-container");
-    ageVerifier.startVerification(host);
-});
+// document.getElementById('my-button').addEventListener('click', () => {
+//     const host = document.getElementById('iframe-container');
+//     ageVerifier.startVerification(host);
+// });
 ```
