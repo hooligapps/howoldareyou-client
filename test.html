@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Verifier Test</title>
+    <style>
+        body { font-family: sans-serif; }
+        #container { border: 1px solid #ccc; padding: 10px; margin-top: 10px; min-height: 500px; }
+        #log { border: 1px solid #eee; padding: 10px; margin-top: 10px; height: 200px; overflow-y: scroll; }
+    </style>
+</head>
+<body>
+    <h1>Age Verifier Library Test Page</h1>
+    <button id="check-needed">Check if Verification is Needed</button>
+    <button id="start-verification" style="display: none;">Start Verification</button>
+
+    <div id="container"></div>
+    <div id="log"></div>
+
+    <script src="lib/age-verifier/js/dist/bundle.umd.js"></script>
+    <script>
+        const log = document.getElementById('log');
+        const checkNeededBtn = document.getElementById('check-needed');
+        const startVerificationBtn = document.getElementById('start-verification');
+        const container = document.getElementById('container');
+
+        function logMessage(message) {
+            log.innerHTML += `<div>${new Date().toLocaleTimeString()}: ${message}</div>`;
+        }
+
+        const verifier = new AgeVerifier({
+            verificationApiDomain: 'http://localhost:5000', // Assuming the test server runs here
+            backendEndpoints: {
+                checkNeeded: '/api/age-verification/check-needed',
+                startVerification: '/api/age-verification/start',
+                checkResult: '/api/age-verification/check-result',
+            },
+            onVerificationNeeded: (response) => {
+                logMessage('Verification is required. Showing start button.');
+                console.log('onVerificationNeeded', response);
+                startVerificationBtn.style.display = 'block';
+            },
+            onVerificationNotNeeded: (response) => {
+                logMessage('Verification is not required.');
+                console.log('onVerificationNotNeeded', response);
+            },
+            onSuccess: (response) => {
+                logMessage(`Verification successful! Result: ${JSON.stringify(response)}`);
+                console.log('onSuccess', response);
+            },
+            onFail: (response) => {
+                logMessage(`Verification failed. Result: ${JSON.stringify(response)}`);
+                console.log('onFail', response);
+            },
+            onError: (error) => {
+                logMessage(`An error occurred: ${error.message}`);
+                console.error('onError', error);
+            }
+        });
+
+        checkNeededBtn.addEventListener('click', () => {
+            logMessage('Checking if verification is needed...');
+            verifier.checkVerificationNeeded();
+        });
+
+        startVerificationBtn.addEventListener('click', () => {
+            logMessage('Starting verification...');
+            verifier.startVerification(container);
+        });
+
+    </script>
+</body>
+</html>
