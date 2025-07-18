@@ -68,4 +68,4 @@ class AgeVerifierClient:
     ) -> dict[str, Any]:
         """Binds userId to the verification session after registration."""
         params = {"sessionId": session_id, "userId": user_id}
-        return self._make_request("api/update-verification-result", params)
+        return self._make_request("api/update-verification-result", params, "POST")
