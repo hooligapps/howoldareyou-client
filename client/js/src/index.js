@@ -111,8 +111,16 @@ export default class AgeVerifier {
                         this._cleanup();
                     }
                 }, 500);
-            } else {
+            } else if (data.result === STATUS.SUCCESS) {
                 this.callbacks.onSuccess(data);
+            } else if (data.result === STATUS.FAIL) {
+                this.callbacks.onFail(data);
+            } else if (data.result === STATUS.ERROR) {
+                this.callbacks.onError(data);
+            } else {
+                this.callbacks.onError(
+                    new Error("Invalid response structure from server")
+                );
             }
         } catch (error) {
             this.callbacks.onError(error);

@@ -1,12 +1,13 @@
 # Age Verification Client Library
 
-This library provides a client-side (JavaScript) and server-side (Python) solution for integrating an age verification service into your application.
+For using the verification service, both client-side and server-side solutions required. Client-side part is to be integrated in your client code, it should work with server-side part on your server, which sends s2s requests to the verification service (it acts as a proxy for the client side, and handles all the communication with the verification service).
+This library provides a client-side (JavaScript) and server-side (Python) solution for integrating our verification service into your application.
 
 ## Installation
 
 ### Python (Server-side)
 
-Place the `age_verifier` directory into your Python project. Then, install the required dependencies:
+Place the contents of the `server/python` directory into your Python project (e.g. as `age_verifier`). Then, install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -32,7 +33,7 @@ The library can also be available as a UMD bundle. Include it in your HTML file:
 
 ### Python
 
-Here's an example of how you might use the Python client in a Flask application.
+Here's an example of how you might use the Python module in a Flask application.
 
 ```python
 from flask import Flask, request, jsonify
