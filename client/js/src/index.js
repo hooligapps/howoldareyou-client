@@ -37,7 +37,7 @@ export default class AgeVerifier {
             }
             const data = await response.json();
 
-            if (data.result) {
+            if (data.hasOwnProperty("result")) {
                 switch (data.result) {
                     case STATUS.NOT_NEEDED:
                         this.callbacks.onVerificationNotNeeded(data);
