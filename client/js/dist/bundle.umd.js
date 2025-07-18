@@ -189,7 +189,7 @@
         }
 
         async updateVerificationResult() {
-            await fetch(this.endpoints.updateVerificationResult, {
+            await fetch(this.endpoints.updateResult, {
                 method: "POST",
             });
         }

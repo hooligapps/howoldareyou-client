@@ -116,6 +116,7 @@ const ageVerifier = new AgeVerifier({
         checkNeeded: "/api/age-verification/check-needed",
         startVerification: "/api/age-verification/start",
         checkResult: "/api/age-verification/check-result",
+        updateResult: "/api/age-verification/update-result",
     },
 
     // Called when verification is required.
@@ -156,4 +157,8 @@ ageVerifier.checkVerificationNeeded();
 document.getElementById("my-button").addEventListener("click", () => {
     ageVerifier.startVerification();
 });
+
+// 3. When you verify a new user that is to be created after verification, notify our service after he is created by calling updateVerificationResult
+// if you fail to do this, the user might be asked for verification again
+ageVerifier.updateVerificationResult();
 ```

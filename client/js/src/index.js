@@ -183,7 +183,7 @@ export default class AgeVerifier {
     }
 
     async updateVerificationResult() {
-        const response = await fetch(this.endpoints.updateVerificationResult, {
+        const response = await fetch(this.endpoints.updateResult, {
             method: "POST",
         });
     }
