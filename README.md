@@ -151,9 +151,8 @@ const ageVerifier = new AgeVerifier({
 ageVerifier.checkVerificationNeeded();
 
 // 2. When the user clicks your "Start Verification" button,
-//    call startVerification with the element to host the iframe.
+//    call startVerification.
 document.getElementById("my-button").addEventListener("click", () => {
-    const host = document.getElementById("iframe-container");
-    ageVerifier.startVerification(host);
+    ageVerifier.startVerification();
 });
 ```
