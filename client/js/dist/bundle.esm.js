@@ -111,15 +111,23 @@ class AgeVerifier {
                         this._cleanup();
                     }
                 }, 500);
-            } else {
+            } else if (data.result === STATUS.SUCCESS) {
                 this.callbacks.onSuccess(data);
+            } else if (data.result === STATUS.FAIL) {
+                this.callbacks.onFail(data);
+            } else if (data.result === STATUS.ERROR) {
+                this.callbacks.onError(data);
+            } else {
+                this.callbacks.onError(
+                    new Error("Invalid response structure from server")
+                );
             }
         } catch (error) {
             this.callbacks.onError(error);
         }
     }
 
-    _handlePostMessage(event) {
+    _handlePostMessage = (event) => {
         if (
             event.origin !== this.verificationApiDomain ||
             event.source !== this.verificationWindow
@@ -149,7 +157,7 @@ class AgeVerifier {
                     );
             }
         }
-    }
+    };
 
     async fetchResult() {
         try {
@@ -180,7 +188,7 @@ class AgeVerifier {
         });
     }
 
-    _cleanup() {
+    _cleanup = () => {
         if (this.pollingInterval) {
             clearInterval(this.pollingInterval);
             this.pollingInterval = null;
@@ -194,7 +202,7 @@ class AgeVerifier {
             }
             this.verificationWindow = null;
         }
-    }
+    };
 }
 
 export { AgeVerifier as default };
