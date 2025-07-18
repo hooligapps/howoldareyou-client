@@ -14,7 +14,6 @@
         - если проверка не пройдена, то игровой сервер шлет запрос на API-сервер api/need-verification с параметрами:
             - clientIp
             - userId
-            - nonce
             - signature (HMAC-SHA256(apiKey + параметры))
         - API-сервер проверяет параметры и возвращает ответ {result: status}, где status
             - 0 - проверка не требуется
@@ -31,8 +30,6 @@
     - clientIp
     - apiId
     - userId (id игрока в игровом сервере, если есть)
-    - redirectUrl (адрес на игровом сервере, куда будет перенаправлен игрок после проверки)
-    - nonce
     - signature (HMAC-SHA256(apiKey + параметры))
 4. API-сервер проверяет параметры и возвращает:
     - ответ {result: "success"} если проверка не требуется (выход из сценария)
@@ -47,13 +44,14 @@
     - сервер Игры шлет запрос на API-сервер api/check-age-verification-result с параметрами:
         - sessionId
         - apiId
-        - nonce
         - signature (HMAC-SHA256(apiKey + параметры))
     - API-сервер проверяет параметры и возвращает ответ {result: status}, где status
         - 0 - not-found
         - 1 - success
         - 2 - fail
         - 3 - error
+        - 4 - pending
+    - если result "pending", то сервер Игры пересылает запрос на API-сервер api/check-age-verification-result через 1 секунду, пока не получит результат
     - если result "not-found", то выводится сообщение об ошибке с возможностью перезагрузки страницы (выход из сценария)
     - если result "error", то выводится сообщение об ошибке с возможностью перезагрузки страницы (выход из сценария)
     - если result "success", то Игра продолжается (выход из сценария)
@@ -69,7 +67,6 @@
                 - sessionId
                 - apiId
                 - userId
-                - nonce
                 - signature (HMAC-SHA256(apiKey + параметры))
         - если result "fail", то пользователь не регистрируется (выход из сценария)
 
@@ -119,7 +116,6 @@
     - параметры:
         - clientIp
         - userId
-        - nonce
         - signature (HMAC-SHA256(apiKey + параметры))
     - возвращает {result: checkAgeVerificationLocal(clientIp, userId)}
 5. api/check-age-verification
@@ -128,7 +124,6 @@
         - clientIp
         - apiId
         - userId
-        - nonce
         - signature (HMAC-SHA256(apiKey + параметры))
     - вызывает функцию checkAgeVerificationLocal(clientIp, userId)
     - если status 1:
@@ -147,7 +142,6 @@
     - параметры:
         - sessionId
         - apiId
-        - nonce
         - signature (HMAC-SHA256(apiKey + параметры))
     - проверяет, есть ли sessionId в логе проверок возраста для данного apiId.
         - если есть, то возвращает {result: status}
@@ -157,6 +151,5 @@
         - sessionId
         - apiId
         - userId
-        - nonce
         - signature (HMAC-SHA256(apiKey + параметры))
     - сохраняет userId в запись лога проверок возраста для данного apiId и sessionId

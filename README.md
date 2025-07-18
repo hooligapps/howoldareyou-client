@@ -14,17 +14,11 @@ pip install -r requirements.txt
 
 ### JavaScript (Client-side)
 
-You can use the library in your project by installing it directly from the subdirectory in the Git repository:
-
-```bash
-npm install git+https://github.com/hooligapps/howoldareyou-client.git#master:lib/age-verifier/js
-```
-
-Or by adding the following to your `package.json`:
+You can use the library in your project by installing it directly from the Git repository by adding the following to your `package.json`:
 
 ```json
 "dependencies": {
-    "age-verifier": "git+https://github.com/hooligapps/howoldareyou-client.git#master:lib/age-verifier/js"
+    "age-verifier": "git+https://github.com/hooligapps/howoldareyou-client.git"
 }
 ```
 
@@ -92,6 +86,17 @@ def check_result():
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/api/age-verification/update-result", methods=["POST"])
+def update_result():
+    session_id = "session_abc" # Should be the same as in /start
+    user_id = "user123"
+
+    try:
+        result = age_verifier_client.update_verification_result(session_id, user_id)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 ```
 
 ### JavaScript
@@ -99,7 +104,7 @@ def check_result():
 This example shows how to import and initialize the `AgeVerifier` and handle the verification flow.
 
 ```javascript
-import AgeVerifier from "age-verifier";
+import AgeVerifier from "age-verifier/lib/age-verifier/js";
 
 const ageVerifier = new AgeVerifier({
     // The domain of the verification service iframe
@@ -147,8 +152,8 @@ ageVerifier.checkVerificationNeeded();
 
 // 2. When the user clicks your "Start Verification" button,
 //    call startVerification with the element to host the iframe.
-// document.getElementById('my-button').addEventListener('click', () => {
-//     const host = document.getElementById('iframe-container');
-//     ageVerifier.startVerification(host);
-// });
+document.getElementById("my-button").addEventListener("click", () => {
+    const host = document.getElementById("iframe-container");
+    ageVerifier.startVerification(host);
+});
 ```
