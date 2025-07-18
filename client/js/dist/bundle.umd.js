@@ -43,9 +43,8 @@
                 }
                 const data = await response.json();
 
-                // В соответствии с PRD, маршрутизируем ответ по колбэкам
                 if (data.result) {
-                    switch (data.result.status) {
+                    switch (data.result) {
                         case STATUS.NOT_NEEDED:
                             this.callbacks.onVerificationNotNeeded(data);
                             break;
