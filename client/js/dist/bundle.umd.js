@@ -116,16 +116,25 @@
                             this._cleanup();
                         }
                     }, 500);
-                } else if (data.result === STATUS.SUCCESS) {
-                    this.callbacks.onSuccess(data);
-                } else if (data.result === STATUS.FAIL) {
-                    this.callbacks.onFail(data);
-                } else if (data.result === STATUS.ERROR) {
-                    this.callbacks.onError(data);
                 } else {
-                    this.callbacks.onError(
-                        new Error("Invalid response structure from server")
-                    );
+                    switch (data.result) {
+                        case STATUS.NOT_NEEDED:
+                            this.callbacks.onVerificationNotNeeded(data);
+                            break;
+                        case STATUS.SUCCESS:
+                            this.callbacks.onSuccess(data);
+                            break;
+                        case STATUS.FAIL:
+                            this.callbacks.onFail(data);
+                            break;
+                        case STATUS.ERROR:
+                            this.callbacks.onError(data);
+                            break;
+                        default:
+                            this.callbacks.onError(
+                                new Error("Invalid response structure from server")
+                            );
+                    }
                 }
             } catch (error) {
                 this.callbacks.onError(error);
