@@ -1,13 +1,13 @@
 ## Relevant Files
 
--   `lib/age-verifier/python/age_verifier/client.py` - Основной файл с функциями Python-модуля для взаимодействия с API верификации.
--   `lib/age-verifier/python/tests/test_client.py` - Модульные тесты для `client.py` с использованием моков.
--   `lib/age-verifier/python/requirements.txt` - Зависимости для Python-модуля (например, `requests`).
--   `lib/age-verifier/js/src/index.js` - Исходный код клиентской JS-библиотеки (`AgeVerifier`).
--   `lib/age-verifier/js/tests/index.test.js` - Модульные тесты для JS-библиотеки (например, с помощью Jest).
--   `lib/age-verifier/js/package.json` - Зависимости и скрипты сборки для JS-части.
--   `lib/age-verifier/js/rollup.config.js` - Конфигурация сборщика (например, Rollup) для создания ESM и UMD бандлов.
--   `lib/age-verifier/README.md` - Документация по установке и использованию библиотеки.
+-   `server/python/age_verifier/client.py` - Основной файл с функциями Python-модуля для взаимодействия с API верификации.
+-   `server/python/tests/test_client.py` - Модульные тесты для `client.py` с использованием моков.
+-   `server/python/requirements.txt` - Зависимости для Python-модуля (например, `requests`).
+-   `client/js/src/index.js` - Исходный код клиентской JS-библиотеки (`AgeVerifier`).
+-   `client/js/tests/index.test.js` - Модульные тесты для JS-библиотеки (например, с помощью Jest).
+-   `client/js/package.json` - Зависимости и скрипты сборки для JS-части.
+-   `client/js/rollup.config.js` - Конфигурация сборщика (например, Rollup) для создания ESM и UMD бандлов.
+-   `README.md` - Документация по установке и использованию библиотеки.
 
 ### Notes
 

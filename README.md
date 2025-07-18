@@ -104,7 +104,7 @@ def update_result():
 This example shows how to import and initialize the `AgeVerifier` and handle the verification flow.
 
 ```javascript
-import AgeVerifier from "age-verifier/lib/age-verifier/js";
+import AgeVerifier from "age-verifier/client/js";
 
 const ageVerifier = new AgeVerifier({
     // The domain of the verification service iframe

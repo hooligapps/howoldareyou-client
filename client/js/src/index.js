@@ -119,7 +119,7 @@ export default class AgeVerifier {
         }
     }
 
-    _handlePostMessage(event) {
+    _handlePostMessage = (event) => {
         if (
             event.origin !== this.verificationApiDomain ||
             event.source !== this.verificationWindow
@@ -149,7 +149,7 @@ export default class AgeVerifier {
                     );
             }
         }
-    }
+    };
 
     async fetchResult() {
         try {
@@ -180,7 +180,7 @@ export default class AgeVerifier {
         });
     }
 
-    _cleanup() {
+    _cleanup = () => {
         if (this.pollingInterval) {
             clearInterval(this.pollingInterval);
             this.pollingInterval = null;
@@ -194,5 +194,5 @@ export default class AgeVerifier {
             }
             this.verificationWindow = null;
         }
-    }
+    };
 }
