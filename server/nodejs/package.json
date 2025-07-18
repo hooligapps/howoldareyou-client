@@ -1,0 +1,19 @@
+{
+  "name": "age-verifier-client",
+  "version": "1.0.0",
+  "description": "Client library for Age Verification API",
+  "main": "age_verifier/client.js",
+  "scripts": {
+    "test": "node tests/test.js"
+  },
+  "keywords": [
+    "age",
+    "verification",
+    "api"
+  ],
+  "author": "Hooliapps",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
