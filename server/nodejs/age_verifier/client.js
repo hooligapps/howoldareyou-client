@@ -48,8 +48,6 @@ class AgeVerifierClient {
     }
 
     try {
-
-      console.log(url.toString());
       const response = await fetch(url.toString(), options);
       clearTimeout(timeoutId);
       const data = await response.json();
