@@ -92,4 +92,4 @@ class AgeVerifierClient {
   }
 }
 
-module.exports = AgeVerifierClient;
+module.exports = { AgeVerifierClient };
