@@ -2,11 +2,11 @@
 export class AgeVerifierClient {
   constructor(apiUrl: string, appId: string, apiKey: string,  timeout?: number);
   getSignature(data: {[key: string]: any}): string;
-  async needVerification(clientIp: string, userId: string): Promise<{ result: number }>;
-  async startCheckAgeVerification(sessionId: string, clientIp: string, userId?: string): Promise<{
+  needVerification(clientIp: string, userId: string): Promise<{ result: number }>;
+  startCheckAgeVerification(sessionId: string, clientIp: string, userId?: string): Promise<{
     result: number,
     url?: string
   }>;
-  async checkAgeVerificationResult(sessionId: string): Promise<{ result: number }>;
-  async updateVerificationResult(sessionId: string, userId: string);
+  checkAgeVerificationResult(sessionId: string): Promise<{ result: number }>;
+  updateVerificationResult(sessionId: string, userId: string);
 }
