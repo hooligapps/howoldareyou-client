@@ -1,5 +1,5 @@
 // client.d.ts
-export declare class AgeVerifierClient {
+export class AgeVerifierClient {
   constructor(apiUrl: string, appId: string, apiKey: string,  timeout?: number);
   getSignature(data: {[key: string]: any}): string;
   needVerification(clientIp: string, userId: string): { result: number };
