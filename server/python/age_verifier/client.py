@@ -32,7 +32,7 @@ class AgeVerifierClient:
         url = f"{self.api_url}/{endpoint}"
 
         # Добавляем общие параметры и подпись
-        full_params = {"apiId": self.api_id, **params}
+        full_params = {"appId": self.api_id, **params}
 
         signature = self.get_signature(full_params)
         full_params["signature"] = signature
