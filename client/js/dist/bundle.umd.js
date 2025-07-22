@@ -151,12 +151,30 @@
 
             if (event.data) {
                 switch (event.data.result) {
+                    case STATUS.NOT_NEEDED:
+                        this.callbacks.onVerificationNotNeeded(event.data);
+                        break;
+                    case STATUS.NEEDED:
+                        this.callbacks.onVerificationNeeded(event.data);
+                        break;
                     case STATUS.SUCCESS:
                         this.callbacks.onSuccess(event.data);
                         break;
                     case STATUS.IN_PROGRESS:
+                        clearInterval(this.pollingInterval);
+                        this.callbacks.onVerificationInProgress(event.data);
+                        let polls = 0;
                         this.pollingInterval = setInterval(() => {
                             this.fetchResult();
+                            polls++;
+                            if (polls > 10) {
+                                clearInterval(this.pollingInterval);
+                                this.callbacks.onError(
+                                    new Error(
+                                        "Verification timed out. Please try again later."
+                                    )
+                                );
+                            }
                         }, 1000);
                         break;
                     case STATUS.FAIL:
