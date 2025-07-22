@@ -8,6 +8,8 @@ const STATUS = {
 };
 
 export default class AgeVerifier {
+    notNeeded = false;
+
     constructor(config) {
         if (!config || !config.backendEndpoints) {
             throw new Error(
@@ -17,11 +19,17 @@ export default class AgeVerifier {
         this.endpoints = config.backendEndpoints;
         this.callbacks = {
             onVerificationNeeded: config.onVerificationNeeded || (() => {}),
-            onVerificationNotNeeded:
-                config.onVerificationNotNeeded || (() => {}),
+            onVerificationNotNeeded: (data) => {
+                this.notNeeded = true;
+                if (config.onVerificationNotNeeded) {
+                    config.onVerificationNotNeeded(data);
+                }
+            },
             onSuccess: config.onSuccess || (() => {}),
             onFail: config.onFail || (() => {}),
             onError: config.onError || (() => {}),
+            onVerificationInProgress:
+                config.onVerificationInProgress || (() => {}),
         };
         this.verificationApiDomain = config.verificationApiDomain;
         this.verificationWindow = null;
@@ -209,6 +217,10 @@ export default class AgeVerifier {
     }
 
     async updateVerificationResult() {
+        if (this.notNeeded) {
+            return;
+        }
+
         const response = await fetch(this.endpoints.updateResult, {
             method: "POST",
         });
