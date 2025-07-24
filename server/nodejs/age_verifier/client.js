@@ -86,7 +86,7 @@ class AgeVerifierClient {
     return this._makeRequest("api/update-verification-result", {
       sessionId,
       userId,
-    });
+    }, "POST");
   }
 }
 
