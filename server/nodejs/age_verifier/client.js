@@ -50,13 +50,24 @@ class AgeVerifierClient {
     try {
       const response = await fetch(url.toString(), options);
       clearTimeout(timeoutId);
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(
-          `Request failed: ${response.status} ${JSON.stringify(data)}`,
-        );
+
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        try {
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(
+              `Request failed: ${response.status} ${JSON.stringify(data)}`,
+            );
+          }
+          return data;
+        } catch (e) {
+          console.error("Invalid JSON format", e);
+          return null;
+        }
+      } else {
+        return null;
       }
-      return data;
     } catch (err) {
       if (err.name === "AbortError") {
         throw new Error("Request timed out");
