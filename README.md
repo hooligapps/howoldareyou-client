@@ -54,7 +54,7 @@ age_verifier_client = AgeVerifierClient(
 )
 
 
-@app.route("/api/age-verification/check-needed", methods=["POST"])
+@app.route("/api/age-verification/check-needed")
 def check_needed():
     # In a real app, you'd get these from the user's session
     user_id = "user123"
@@ -66,7 +66,7 @@ def check_needed():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/api/age-verification/start", methods=["POST"])
+@app.route("/api/age-verification/start")
 def start_verification():
     session_id = "session_abc" # Should be unique per-verification
     client_ip = request.remote_addr
@@ -78,7 +78,7 @@ def start_verification():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route("/api/age-verification/check-result", methods=["POST"])
+@app.route("/api/age-verification/check-result")
 def check_result():
     session_id = "session_abc" # Should be the same as in /start
 
