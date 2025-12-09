@@ -80,10 +80,18 @@ class AgeVerifierClient {
     return this._makeRequest("api/need-verification", { clientIp, userId });
   }
 
-  startCheckAgeVerification(sessionId, clientIp, userId = null) {
+  startCheckAgeVerification(sessionId, clientIp, userId = null, extraParams = null) {
     const params = { sessionId, clientIp };
     if (userId)
       params.userId = userId;
+
+    if (extraParams && typeof extraParams === "object") {
+      const paramsToStr = Object.fromEntries(
+        Object.entries(extraParams).map(([k, v]) => [k, String(v)])
+      );
+      params.extraParams = new URLSearchParams(paramsToStr).toString();
+    }
+
     return this._makeRequest("api/check-age-verification", params);
   }
 

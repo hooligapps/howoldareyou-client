@@ -6,9 +6,9 @@ export class AgeVerifierClient {
 
     needVerification(clientIp: string, userId: string): Promise<{ result: number }>;
 
-    startCheckAgeVerification(sessionId: string, clientIp: string, userId?: string): Promise<{
-        result: number,
-        url?: string
+    startCheckAgeVerification(sessionId: string, clientIp: string, userId?: string, extraParams?: Record<string, any>): Promise<{
+      result: number,
+      url?: string
     }>;
 
     checkAgeVerificationResult(sessionId: string): Promise<{ result: number }>;
