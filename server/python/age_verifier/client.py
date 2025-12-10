@@ -2,6 +2,7 @@
 
 import hashlib
 from typing import Any, Optional
+from urllib.parse import urlencode
 import requests
 
 
@@ -50,12 +51,17 @@ class AgeVerifierClient:
         return self._make_request("api/need-verification", params)
 
     def start_check_age_verification(
-        self, session_id: str, client_ip: str, user_id: Optional[str] = None
+        self, session_id: str, client_ip: str, user_id: Optional[str] = None, extra_params: Optional[dict] = None,
     ) -> dict[str, Any]:
         """Starts the age verification process."""
         params = {"sessionId": session_id, "clientIp": client_ip}
         if user_id:
             params["userId"] = user_id
+
+        if extra_params:
+            encoded_query = urlencode(extra_params, doseq=True)
+            params["extraParams"] = encoded_query
+
         return self._make_request("api/check-age-verification", params)
 
     def check_age_verification_result(self, session_id: str) -> dict[str, Any]:
